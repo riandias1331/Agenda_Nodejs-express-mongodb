@@ -1,0 +1,86 @@
+<%- include ('includes/head'); %>
+    <%- include ('includes/nav'); %>
+
+        <style>
+            .index {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            h1 {
+                text-align: center;
+            }
+
+            .title_Agenda {
+                text-align: center;
+
+            }
+
+            .error {
+                background-color: rgb(245, 165, 165);
+                color: red;
+                width: 100%;
+            }
+
+            .table {
+                padding: 40px;
+
+                td {
+                    padding: 10px;
+                }
+
+                #linha-horizontal {
+                    width: 100%;
+                    border: 1px solid #000;
+                }
+
+            }
+        </style>
+
+
+        <body>
+
+            <main class="index">
+                <div class="container">
+                    <div class="one">
+
+                    </div>
+
+                    <div class="title_Agenda">
+                        <h1>Agenda</h1>
+                        <p>Seus contatos estão abaixo.</p>
+
+                    </div>
+
+                    <!-- <div class="errorMensage">
+                        <h1 class="error">error</h1>
+                    </div> -->
+
+                    <div class="table_Agenda">
+                        <table class="table">
+                            <tr>
+                                <td>Nome</td>
+                                <td>SobreNome</td>
+                                <td>Telefone</td>
+                                <td>Email</td>
+                            </tr>
+                            <div id="linha-horizontal"></div>
+                            <tr>
+                                <td>Rian</td>
+                                <td>Dias</td>
+                                <td>31989170992</td>
+                                <td>pereiradiasrian@gml.com</td>
+                            </tr>
+                        </table>
+                    </div>
+
+
+                </div>
+            </main>
+
+
+        </body>
+
+        <%- include ('includes/footer'); %>

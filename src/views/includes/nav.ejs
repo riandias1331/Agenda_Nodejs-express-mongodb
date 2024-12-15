@@ -1,0 +1,64 @@
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  nav {
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    margin-right: 20px;
+    /* Adicionado para espaçamento interno */
+    
+
+
+    ul {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      list-style: none;
+      /* Remove os marcadores padrão */
+      margin: 0;
+      margin-right: 30px;
+      padding: 0;
+    }
+
+    li {
+      margin: 0 15px;
+      /* Adiciona espaço entre os itens */
+      display: inline-block;
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
+      /* Remove o sublinhado dos links */
+    }
+
+    a:hover {
+      text-decoration: underline;
+      /* Adiciona sublinhado ao passar o mouse */
+    }
+
+  }
+</style>
+
+
+<header>
+  <nav>
+    <li><a href="/">Agenda</a></li>
+    <ul>
+      <li><a href="/login/enter">Login</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+</header>
