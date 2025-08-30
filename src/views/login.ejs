@@ -1,144 +1,92 @@
-<%- include ('includes/head'); %>
-    <%- include ('includes/nav'); %>
+<%- include('includes/head'); %>
+<%- include('includes/nav'); %>
 
-        <style>
-            .index {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                margin: 200px;
-            }
+<style>
+    .index {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 200px;
+    }
 
-            h1 {
-                text-align: center;
-            }
+    .login-container {
+        width: 300px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
 
-            .title {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-direction: column;
-                line-height: 5px;
-            }
+    h2 {
+        color: #333;
+        margin-bottom: 20px;
+    }
 
-            .container_login {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                padding: 50px;
+    .input-field {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+    }
 
+    .login-btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #4CAF50;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
 
-                form {
-                    display: flex;
-                    flex-direction: column;
-                    padding: 40px;
-                }
+    .login-btn:hover {
+        background-color: #45a049;
+    }
 
-                input {
+    .signup-link {
+        margin-top: 20px;
+        color: #333;
+    }
 
-                    border-radius: 5px;
-                    border: solid 1px #9b9898;
-                    padding: 10px;
-                    width: 100%;
-                }
+    .signup-link a {
+        color: #4CAF50;
+        text-decoration: none;
+        font-weight: bold;
+    }
 
-                #btn {
-                    cursor: pointer;
-                    margin-top: 5px;
-                    width: 40%;
-                }
-            }
+    .signup-link a:hover {
+        text-decoration: underline;
+    }
 
-            .Login {
-                margin: 0px;
+    .errorMensage {
+        display: none;
+        color: red;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+</style>
 
-                h4 {
-                    font-size: 24px;
-                }
-            }
-
-
-            .login-container {
-                width: 300px;
-                padding: 20px;
-                background-color: #fff;
-                border-radius: 8px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                text-align: center;
-            }
-
-            h2 {
-                color: #333;
-                margin-bottom: 20px;
-            }
-
-            .input-field {
-                width: 100%;
-                padding: 10px;
-                margin: 10px 0;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                font-size: 16px;
-            }
-
-            .login-btn {
-                width: 100%;
-                padding: 10px;
-                background-color: #4CAF50;
-                border: none;
-                border-radius: 4px;
-                color: white;
-                font-size: 16px;
-                cursor: pointer;
-            }
-
-            .login-btn:hover {
-                background-color: #45a049;
-            }
-
-            .signup-link {
-                margin-top: 20px;
-                color: #333;
-            }
-
-            .signup-link a {
-                color: #4CAF50;
-                text-decoration: none;
-                font-weight: bold;
-            }
-
-            .signup-link a:hover {
-                text-decoration: underline;
-            }
-        </style>
-
-
-        <body>
-
-            <main class="index">
-
-                <div class="login-container">
-                    <h2>Login</h2>
-                    <form action="/login/enter" method="post">
-                        <input type="hidden" name="_csrf" value=<%=csrfToken %>>
-                        <input type="email" name="email" class="input-field" placeholder="Email" required>
-                        <input type="password" name="password" class="input-field" placeholder="Senha" required>
-                        <button type="submit" class="login-btn">Entrar</button>
-                    </form>
-                    <p class="signup-link">Já tem uma conta? <a href="/login/register">Inscreva-se</a></p>
-                </div>
-
+<body>
+    <main class="index">
+        <div class="login-container">
+            <h2>Login</h2>
+            <form action="/login/login" method="post">
                 <div class="errorMensage">
-                    <h1 class="error">error</h1>
+                    <p class="error">Erro: credenciais inválidas</p>
                 </div>
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <input type="email" name="email" class="input-field" placeholder="Email" required>
+                <input type="password" name="password" class="input-field" placeholder="Senha" required>
+                <button type="submit" class="login-btn">Entrar</button>
+            </form>
+            <p class="signup-link">Não tem uma conta? <a href="/login/register">Inscreva-se</a></p>
+        </div>
+    </main>
+</body>
 
-
-
-                </div>
-            </main>
-
-
-        </body>
-
-        <%- include ('includes/footer'); %>
+<%- include('includes/footer'); %>

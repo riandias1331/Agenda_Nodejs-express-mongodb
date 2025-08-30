@@ -1,107 +1,58 @@
-const mongoose = require('mongoose') 
-const validator = require('validator') 
-const bcryptjs = require('bcrypt') 
-
+const mongoose = require('mongoose');
+const validator = require('validator');
 
 const loginSchema = new mongoose.Schema({
-    email: { type: String, required: true }, 
-    password: { type: String, required: true }, 
-    createadAt: {
+
+    email: {
+        type: String,
+        required: true,  
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    createdAt: {
         type: Date,
-        default: Date.now 
+        default: Date.now
     }
-})
+});
 
+const loginModel = mongoose.model('LoginAgendaRian', loginSchema);
 
-const loginModel = mongoose.model('logindatabase', loginSchema)
-
-
-class LoginDatabase {
-    constructor(body) {
-        this.body = body 
-        this.errors = [] 
-        this.user = null 
+class Login{
+    constructor(body){
+        this.body = body;
+        this.errors = [];
+        this.user = null;
     }
-
-
-    async login() {
-        this.valida() 
-        if (this.errors.length > 0) return 
-
-        try {
-
-            this.user = await loginModel.findOne({ email: this.body.email })
-            if (!this.user) { 
-                this.errors.push('Usuário não existe.')
-                return
+    Register(){
+        this.Validate();
+    }
+    Validate(){
+        this.cleanUp();
+        // Validação
+        // O email precisa ser válido
+        if(!validator.isEmail(this.body.email)){
+            this.errors.push('E-mail inválido!');
+        }
+        // A senha precisa ter entre 4 e 20 caracteres
+        if(this.body.password.length < 4 || this.body.password.length > 20){
+            this.errors.push('A senha precisa ter entre 4 e 10 caracteres!');
+        }
+    
+    }
+    cleanUp(){
+        for(const key in this.body){
+            if(typeof this.body[key] !== 'string'){
+                this.body[key] = '';
             }
-
-
-            const validPassword = await bcryptjs.compare(this.body.password, this.user.password)
-            if (!validPassword) {
-                this.errors.push('Senha inválida')
-                this.user = null 
-                return
-            }
-        } catch (error) {
-            this.errors.push('Erro no servidor, tente novamente mais tarde.')
-            console.error(error) 
         }
-    }
-
-
-    async register() {
-        this.valida() 
-        if (this.errors.length > 0) return 
-
-        await this.userExists() 
-        if (this.errors.length > 0) return 
-
-
-        const salt = bcryptjs.genSaltSync()
-        this.body.password = bcryptjs.hashSync(this.body.password, salt)
-
-        try {
-            this.user = await loginModel.create(this.body)
-        } catch (error) {
-            this.errors.push('Erro ao salvar no banco de dados.')
-            console.error(error)
-        }
-    }
-
-    async userExists() {
-        try {
-
-            this.user = await loginModel.findOne({ email: this.body.email })
-            if (this.user) this.errors.push('Usuário existente') 
-        } catch (error) {
-
-            this.errors.push('Erro no servidor.')
-            console.error(error)
-        }
-    }
-
-
-    valida() {
-        this.cleanUp() 
-
-
-        if (!validator.isEmail(this.body.email)) this.errors.push(' Email Inválido ')
-
-
-        if (this.body.password.length < 8 || this.body.password.length > 50) {
-            this.errors.push('A Senha precisa ter entre 8 e 50 caracteres ')
-        }
-    }
-
-
-    cleanUp() {
-
         this.body = {
-            email: typeof this.body.email === 'string' ? this.body.email : '',
-            password: typeof this.body.password === 'string' ? this.body.password : ''
-        }
+            email: this.body.email,
+            password: this.body.password
+        };
     }
 }
 
-module.exports = LoginDatabase 
+
+module.exports = loginModel;
