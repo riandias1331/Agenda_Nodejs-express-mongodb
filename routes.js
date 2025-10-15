@@ -1,21 +1,29 @@
 const express = require('express')
 const route = express.Router()
 
-const homeController = require('./src/controllers/homeController.js')
-const loginController = require('./src/controllers/loginController.js')
-const contatoController = require('./src/controllers/contatoController.js')
+const homeController = require('./src/controllers/homeController4')
+const loginController = require('./src/controllers/loginController')
+const contatoController = require('./src/controllers/contatoController')
 
-// Home
+const { loginRequired } = require('./src/middlewares/middleware')
+
+// rotas da home
 route.get('/', homeController.index)
 
+//rotas de login
+//                           middlewares
+route.get('/login/index', loginController.index)
+route.post('/login/register', loginController.register)
+route.post('/login/login', loginController.login)
+route.get('/login/logout', loginController.logout)
 
-// login
-route.get('/login/register', loginController.indexRegister) 
-route.get('/login/login', loginController.indexLogin) 
+// rotas de contato
+//                           middlewares
+route.get('/contato/index', loginRequired, contatoController.index)
+route.post('/contato/register', loginRequired, contatoController.register)
+route.get('/contato/index/:id', loginRequired, contatoController.editIndex)
+route.post('/contato/edit/:id', loginRequired, contatoController.edit)
+route.get('/contato/delete/:id', loginRequired, contatoController.delete)
 
-route.post('/login/register', loginController.register)   
-route.post('/login/login', loginController.login)   
-
-// contact
 
 module.exports = route
